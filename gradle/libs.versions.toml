@@ -5,9 +5,19 @@ coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.6.1"
-activityCompose = "1.7.0"
-composeBom = "2023.08.00"
+lifecycleRuntimeKtx = "2.8.0"
+activityCompose = "1.9.0"
+composeBom = "2024.05.00"
+hilt = "2.51"
+hiltExt = "1.2.0"
+accompanist = "0.29.2-rc"
+androidxNavigation = "2.7.7"
+androidxHiltNavigationCompose = "1.2.0"
+kotlinxCoroutines = "1.6.4"
+splashScreen = "1.0.1"
+datastore = "1.1.1"
+kotlinKsp = "1.9.0-1.0.12"
+lottieAnimation= "6.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,7 +35,33 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+#Splash API
+splash-screen = { group = "androidx.core" , name ="core-splashscreen", version.ref = "splashScreen"}
+
+#Lottie
+lottie-animation = { group = "com.airbnb.android" , name ="lottie-compose", version.ref = "lottieAnimation"}
+
+#Navigation Compose
+navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref="androidxNavigation"}
+
+#DataStore Preferences
+dataStore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref="datastore"}
+
+#Pager and Indicators - Accompanist
+accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
+accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "accompanist" }
+
+#Dependency injection
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
+hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
+
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+jetbrainsKotlinKsp = { id = "com.google.devtools.ksp", version.ref = "kotlinKsp" }
+hiltPlugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 

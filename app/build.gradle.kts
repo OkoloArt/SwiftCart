@@ -1,7 +1,10 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.jetbrainsKotlinKsp)
+    alias(libs.plugins.hiltPlugin)
 }
+
 
 android {
     namespace = "com.example.swiftcart"
@@ -56,6 +59,29 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    //Splash
+    implementation(libs.splash.screen)
+
+    //Lottie
+    implementation(libs.lottie.animation)
+
+    //Navigation
+    implementation(libs.navigation.compose)
+
+    //Datastore
+    implementation(libs.dataStore.preferences)
+
+    // Pager and Pager Indicators
+    implementation(libs.accompanist.pager.indicators)
+    implementation(libs.accompanist.pager)
+
+    //Hilt
+    implementation (libs.hilt.android)
+    ksp(libs.hilt.ext.compiler)
+    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.navigation)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
