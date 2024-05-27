@@ -5,7 +5,7 @@
 
     <style name="Theme.CustomSplashScreenTheme" parent="android:Theme.Material.Light.NoActionBar" >
         <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/shopping_one</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/shopping_icon</item>
         <item name="windowSplashScreenAnimationDuration">600</item>
         <item name="postSplashScreenTheme">@style/Theme.SwiftCart</item>
         <item name="android:windowIsTranslucent">true</item>
