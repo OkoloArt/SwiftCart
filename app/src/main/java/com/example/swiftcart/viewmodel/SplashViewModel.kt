@@ -5,7 +5,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.swiftcart.data.DataStoreRepo
+import com.example.swiftcart.data.repository.DataStoreRepo
 import com.example.swiftcart.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,13 +25,21 @@ class SplashViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             repository.readOnBoardingState().collect { completed ->
-                _startDestination.value = if (completed) {
-                    Screen.Home.route
+                if (completed) {
+                    repository.readHasLoggedInState().collect { loggedIn ->
+                        _startDestination.value = if (loggedIn) {
+                            Screen.Home.route
+                        } else {
+                            Screen.Login.route
+                        }
+                        _isLoading.value = false
+                    }
                 } else {
-                    Screen.Onboarding.route
+                    _startDestination.value = Screen.Onboarding.route
+                    _isLoading.value = false
                 }
-                _isLoading.value = false
             }
         }
+
     }
 }
