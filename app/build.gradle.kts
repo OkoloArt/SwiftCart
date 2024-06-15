@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.jetbrainsKotlinKsp)
     alias(libs.plugins.hiltPlugin)
+    alias(libs.plugins.kotlinSerialization)
 }
 
 
@@ -40,7 +41,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
     packaging {
         resources {
@@ -81,6 +82,28 @@ dependencies {
     ksp(libs.hilt.ext.compiler)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation)
+
+    //Coroutines
+    implementation(libs.kotlinx.coroutines)
+
+    //Google Fonts
+    implementation(libs.google.fonts)
+
+    //Compose Lifecycle
+    implementation(libs.runtime.livedata)
+    implementation(libs.lifecycle.compose)
+
+    //Kotlinx-serialization
+    implementation(libs.kotlinx.serialization)
+
+    //ktor
+    implementation(libs.client.android)
+    implementation(libs.client.logging)
+    implementation(libs.client.auth)
+    implementation(libs.client.serialization)
+    implementation(libs.client.content.negotiation)
+    implementation(libs.client.cio)
+    implementation(libs.ktor.serialization)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

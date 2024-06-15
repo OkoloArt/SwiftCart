@@ -1,11 +1,11 @@
 [versions]
 agp = "8.3.2"
 kotlin = "1.9.0"
-coreKtx = "1.10.1"
+coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.8.0"
+lifecycleRuntimeKtx = "2.8.1"
 activityCompose = "1.9.0"
 composeBom = "2024.05.00"
 hilt = "2.51"
@@ -13,11 +13,18 @@ hiltExt = "1.2.0"
 accompanist = "0.29.2-rc"
 androidxNavigation = "2.7.7"
 androidxHiltNavigationCompose = "1.2.0"
-kotlinxCoroutines = "1.6.4"
+kotlinxCoroutines = "1.7.3"
 splashScreen = "1.0.1"
 datastore = "1.1.1"
 kotlinKsp = "1.9.0-1.0.12"
 lottieAnimation= "6.3.0"
+serialization = "1.9.10"
+ktorClient = "2.3.6"
+ktorClientCio = "2.3.9"
+kotlinxSerialization = "1.5.1"
+liveData = "1.6.7"
+lifecycle-compose = "2.8.1"
+fontVersion = "1.6.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,6 +54,9 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 #DataStore Preferences
 dataStore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref="datastore"}
 
+#Google-Fonts
+google-fonts = { group ="androidx.compose.ui", name = "ui-text-google-fonts", version.ref="fontVersion"}
+
 #Pager and Indicators - Accompanist
 accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
 accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "accompanist" }
@@ -57,11 +67,29 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 hilt-ext-compiler = { group = "androidx.hilt", name = "hilt-compiler", version.ref = "hiltExt" }
 hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
 
+#kotlinx serialization
+kotlinx-serialization = { group ="org.jetbrains.kotlinx", name ="kotlinx-serialization-json", version.ref="kotlinxSerialization"}
+
+#compose lifecycle
+runtime-livedata = { group ="androidx.compose.runtime", name ="runtime-livedata", version.ref="liveData"}
+lifecycle-compose = { group ="androidx.lifecycle", name ="lifecycle-viewmodel-compose", version.ref="lifecycle-compose"}
+
+#Ktor client
+kotlinx-coroutines = { group ="org.jetbrains.kotlinx", name ="kotlinx-coroutines-core", version.ref="kotlinxCoroutines"}
+client-android = { group ="io.ktor", name ="ktor-client-android", version.ref="ktorClient"}
+client-serialization = { group ="io.ktor", name ="ktor-client-serialization", version.ref="ktorClient"}
+client-logging = { group ="io.ktor", name ="ktor-client-logging", version.ref="ktorClient"}
+client-auth = { group ="io.ktor", name ="ktor-client-auth", version.ref="ktorClient"}
+client-content-negotiation = { group ="io.ktor", name ="ktor-client-content-negotiation", version.ref="ktorClient"}
+ktor-serialization = { group ="io.ktor", name ="ktor-serialization-kotlinx-json", version.ref="ktorClient"}
+client-cio = { group ="io.ktor", name ="ktor-client-cio", version.ref="ktorClientCio"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 jetbrainsKotlinKsp = { id = "com.google.devtools.ksp", version.ref = "kotlinKsp" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization"}
+#kotlinxSerialization = {id = "kotlinx-serialization"}
 hiltPlugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 

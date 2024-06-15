@@ -97,7 +97,7 @@ fun Onboarding(
         ) {
             onboardViewModel.saveOnBoardingState(completed = true)
             navController.popBackStack()
-            navController.navigate(Screen.Home.route)
+            navController.navigate(Screen.Login.route)
         }
 
     }
