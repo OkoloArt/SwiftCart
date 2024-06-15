@@ -48,8 +48,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun RegisterScreen(
- authViewModel: AuthViewModel = hiltViewModel(),
- navController: NavController
+    authViewModel: AuthViewModel = hiltViewModel(),
+    navController: NavController
 ) {
 
     Box(
@@ -68,9 +68,11 @@ fun RegisterScreen(
         val isInputValid = authViewModel.validateInput(fullName, email, password, "user190")
         val coroutineScope = rememberCoroutineScope()
 
-        Column(modifier = Modifier
-            .align(alignment = Alignment.Center)
-            .padding(bottom = 50.dp)) {
+        Column(
+            modifier = Modifier
+                .align(alignment = Alignment.Center)
+                .padding(bottom = 50.dp)
+        ) {
 
             Heading()
 
@@ -124,14 +126,15 @@ fun RegisterScreen(
                         )
                     }
                 }
-        },
+            },
             navigateToLogin = {
                 navController.popBackStack()
-                navController.navigate(Screen.Login.route)}
-    )
+                navController.navigate(Screen.Login.route)
+            }
+        )
 
-    val context = LocalContext.current
-    var createUserResponse by remember { mutableStateOf("Waiting for Response") }
+        val context = LocalContext.current
+        var createUserResponse by remember { mutableStateOf("Waiting for Response") }
 
     }
 }
@@ -179,8 +182,7 @@ fun InputField(
             onValueChange = onFullNameChange,
             keyboardType = KeyboardType.Text,
             imeAction = ImeAction.Next,
-            isError = fullName.isBlank() && fullNameSupportingText,
-            placeholderText = "name"
+            isError = fullName.isBlank() && fullNameSupportingText
         )
 
         Spacer(modifier = Modifier.height(14.dp))
@@ -192,8 +194,7 @@ fun InputField(
             onValueChange = onEmailChange,
             keyboardType = KeyboardType.Email,
             imeAction = ImeAction.Next,
-            isError = email.isBlank() && emailSupportingText,
-            placeholderText = "email"
+            isError = email.isBlank() && emailSupportingText
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -203,7 +204,9 @@ fun InputField(
         OutlinedTextField(
             value = password,
             onValueChange = onPasswordChange,
-            modifier = Modifier.fillMaxWidth().height(48.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp),
             singleLine = true,
             maxLines = 1,
             keyboardOptions = KeyboardOptions(
@@ -222,9 +225,6 @@ fun InputField(
                 }
             },
             isError = password.isBlank() && passwordSupportingText,
-            placeholder = {
-                Text(text = "password")
-            },
             shape = RoundedCornerShape(15.dp)
         )
 
@@ -254,12 +254,13 @@ fun InputTextField(
     keyboardType: KeyboardType,
     imeAction: ImeAction,
     isError: Boolean,
-    placeholderText: String
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = Modifier.fillMaxWidth().height(48.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp),
         singleLine = true,
         maxLines = 1,
         keyboardOptions = KeyboardOptions(
@@ -267,9 +268,6 @@ fun InputTextField(
             imeAction = imeAction
         ),
         isError = isError,
-        placeholder = {
-            Text(text = placeholderText)
-        },
         shape = RoundedCornerShape(15.dp)
     )
 }
@@ -280,7 +278,7 @@ fun CreateUserButton(
     onClick: () -> Unit,
     navigateToLogin: () -> Unit
 ) {
-    Column( modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxWidth()) {
         Button(
             onClick = onClick,
             modifier = Modifier.fillMaxWidth()
@@ -288,8 +286,10 @@ fun CreateUserButton(
             Text(text = "Register")
         }
         Spacer(modifier = Modifier.height(6.dp))
-        Row (horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxWidth()) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text(text = "Already have an account?")
             Spacer(modifier = Modifier.width(8.dp))
             Text(text = "Login",

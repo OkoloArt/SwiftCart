@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.swiftcart.data.repository.DataStoreRepo
+import com.example.swiftcart.navigation.BottomNavigationScreens
 import com.example.swiftcart.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -28,7 +29,7 @@ class SplashViewModel @Inject constructor(
                 if (completed) {
                     repository.readHasLoggedInState().collect { loggedIn ->
                         _startDestination.value = if (loggedIn) {
-                            Screen.Home.route
+                            BottomNavigationScreens.Home.route
                         } else {
                             Screen.Login.route
                         }
