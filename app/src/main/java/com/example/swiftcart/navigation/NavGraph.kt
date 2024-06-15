@@ -1,14 +1,22 @@
 package com.example.swiftcart.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.swiftcart.ui.screens.CartScreen
 import com.example.swiftcart.ui.screens.HomeScreen
 import com.example.swiftcart.ui.screens.LoginScreen
+import com.example.swiftcart.ui.screens.NotificationScreen
 import com.example.swiftcart.ui.screens.Onboarding
+import com.example.swiftcart.ui.screens.ProfileScreen
 import com.example.swiftcart.ui.screens.RegisterScreen
 import com.example.swiftcart.ui.screens.SplashScreen
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -20,6 +28,7 @@ fun SetupNavGraph(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -37,8 +46,17 @@ fun SetupNavGraph(
         composable(route = Screen.Login.route){
             LoginScreen(navController = navController)
         }
-        composable(route = Screen.Home.route) {
+        composable(route = BottomNavigationScreens.Home.route) {
             HomeScreen()
+        }
+        composable(route = BottomNavigationScreens.Cart.route){
+            CartScreen()
+        }
+        composable(route = BottomNavigationScreens.Profile.route){
+            ProfileScreen()
+        }
+        composable(route = BottomNavigationScreens.Notification.route){
+            NotificationScreen()
         }
     }
 }
