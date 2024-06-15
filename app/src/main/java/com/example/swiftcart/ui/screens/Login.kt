@@ -11,11 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Button
@@ -33,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -42,18 +39,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.airbnb.lottie.compose.LottieAnimation
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.swiftcart.R
 import com.example.swiftcart.data.model.LoginDto
+import com.example.swiftcart.navigation.BottomNavigationScreens
 import com.example.swiftcart.navigation.Screen
 import com.example.swiftcart.utils.AuthResult
 import com.example.swiftcart.viewmodel.AuthViewModel
@@ -73,10 +64,10 @@ fun LoginScreen(
     ) {
         // Login form UI elements...
 
-        var usernameSupportingText by remember { mutableStateOf(false) }
+        var emailSupportingText by remember { mutableStateOf(false) }
         var passwordSupportingText by remember { mutableStateOf(false) }
         var passwordVisible by remember { mutableStateOf(false) }
-        var username by remember { mutableStateOf("") }
+        var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var loadingVisibility by remember { mutableStateOf(false) }
         var alpha by remember { mutableFloatStateOf(1f) }
@@ -108,13 +99,13 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(25.dp))
 
             LoginInputField(
-                username = username,
-                onUsernameChange = { value -> username = value },
+                email = email,
+                onUsernameChange = { value -> email = value },
                 password = password,
                 onPasswordChange = { value -> password = value },
                 passwordVisible = passwordVisible,
                 onPasswordVisibilityChange = { passwordVisible = !passwordVisible },
-                usernameSupportingText = usernameSupportingText,
+                usernameSupportingText = emailSupportingText,
                 passwordSupportingText = passwordSupportingText
             )
 
@@ -124,18 +115,18 @@ fun LoginScreen(
                 modifier = Modifier.align(alignment = Alignment.CenterHorizontally),
                 onClick = {
                     coroutineScope.launch {
-                        if (password.isBlank() && username.isBlank()) {
+                        if (password.isBlank() && email.isBlank()) {
                             passwordSupportingText = true
-                            usernameSupportingText = true
+                            emailSupportingText = true
                         } else if (password.isBlank()) {
                             passwordSupportingText = true
-                        } else if (username.isBlank()) {
-                            usernameSupportingText = true
+                        } else if (email.isBlank()) {
+                            emailSupportingText = true
                         } else {
                             loadingVisibility = true
                             alpha = 0.5f
                             val loginDto =
-                                LoginDto(username = username, password = password)
+                                LoginDto(email = email, password = password)
                             authViewModel.loginUser(loginDto)
                         }
                     }
@@ -167,7 +158,7 @@ fun LoginScreen(
                                 loadingVisibility = false
                                 alpha = 1f
                                 navController.popBackStack()
-                                navController.navigate(Screen.Home.route)
+                                navController.navigate(BottomNavigationScreens.Home.route)
                             }
                         }
                     }
@@ -186,7 +177,7 @@ fun LoginScreen(
 @Composable
 fun LoginInputField(
     modifier: Modifier = Modifier,
-    username: String,
+    email: String,
     onUsernameChange: (String) -> Unit,
     password: String,
     onPasswordChange: (String) -> Unit,
@@ -196,15 +187,14 @@ fun LoginInputField(
     passwordSupportingText: Boolean
 ) {
     Column() {
-        InputFieldLabel(text = "Username")
+        InputFieldLabel(text = "Email")
         Spacer(modifier = Modifier.height(8.dp))
         InputTextField(
-            value = username,
+            value = email,
             onValueChange = onUsernameChange,
-            keyboardType = KeyboardType.Text,
+            keyboardType = KeyboardType.Email,
             imeAction = ImeAction.Next,
-            isError = username.isBlank() && usernameSupportingText,
-            placeholderText = "username"
+            isError = email.isBlank() && usernameSupportingText
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -216,7 +206,7 @@ fun LoginInputField(
             onValueChange = onPasswordChange,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp),
+                .height(50.dp),
             singleLine = true,
             maxLines = 1,
             keyboardOptions = KeyboardOptions(
@@ -235,9 +225,6 @@ fun LoginInputField(
                 }
             },
             isError = password.isBlank() && passwordSupportingText,
-            placeholder = {
-                Text(text = "password")
-            },
             shape = RoundedCornerShape(15.dp)
         )
     }
