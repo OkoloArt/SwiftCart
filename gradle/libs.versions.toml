@@ -5,7 +5,7 @@ coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.8.1"
+lifecycleRuntimeKtx = "2.8.2"
 activityCompose = "1.9.0"
 composeBom = "2024.05.00"
 hilt = "2.51"
@@ -22,9 +22,10 @@ serialization = "1.9.10"
 ktorClient = "2.3.6"
 ktorClientCio = "2.3.9"
 kotlinxSerialization = "1.5.1"
-liveData = "1.6.7"
-lifecycle-compose = "2.8.1"
-fontVersion = "1.6.7"
+liveData = "1.6.8"
+lifecycle-compose = "2.8.2"
+fontVersion = "1.6.8"
+coilVersion = "2.6.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -69,6 +70,9 @@ hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", v
 
 #kotlinx serialization
 kotlinx-serialization = { group ="org.jetbrains.kotlinx", name ="kotlinx-serialization-json", version.ref="kotlinxSerialization"}
+
+#coil
+coil-compose = { group = "io.coil-kt", name ="coil-compose", version.ref = "coilVersion"}
 
 #compose lifecycle
 runtime-livedata = { group ="androidx.compose.runtime", name ="runtime-livedata", version.ref="liveData"}

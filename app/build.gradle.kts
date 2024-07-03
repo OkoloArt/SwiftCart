@@ -83,6 +83,9 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation)
 
+    //Coil
+    implementation(libs.coil.compose)
+
     //Coroutines
     implementation(libs.kotlinx.coroutines)
 
