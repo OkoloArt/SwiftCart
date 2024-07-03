@@ -27,6 +27,21 @@ val displayFontFamily = FontFamily(
     )
 )
 
+val yanoneFontFamily = FontFamily(
+    Font(
+        googleFont = GoogleFont("Yanone Kaffeesatz"),
+        fontProvider = provider,
+    )
+)
+
+val courgetteFontFamily = FontFamily(
+    Font(
+        googleFont = GoogleFont("Courgette"),
+        fontProvider = provider,
+    )
+)
+
+
 // Default Material 3 typography values
 val baseline = Typography()
 
