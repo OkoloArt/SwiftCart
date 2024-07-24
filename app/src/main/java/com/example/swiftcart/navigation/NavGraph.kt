@@ -6,6 +6,7 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -16,9 +17,11 @@ import com.example.swiftcart.ui.screens.HomeScreen
 import com.example.swiftcart.ui.screens.LoginScreen
 import com.example.swiftcart.ui.screens.NotificationScreen
 import com.example.swiftcart.ui.screens.Onboarding
+import com.example.swiftcart.ui.screens.ProductDetail
 import com.example.swiftcart.ui.screens.ProfileScreen
 import com.example.swiftcart.ui.screens.RegisterScreen
 import com.example.swiftcart.ui.screens.SplashScreen
+import com.example.swiftcart.viewmodel.ProductViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalAnimationApi
@@ -28,6 +31,8 @@ fun SetupNavGraph(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+
+    val productViewModel: ProductViewModel = hiltViewModel()
 
     NavHost(
         modifier = modifier,
@@ -47,7 +52,10 @@ fun SetupNavGraph(
             LoginScreen(navController = navController)
         }
         composable(route = BottomNavigationScreens.Home.route) {
-            HomeScreen()
+            HomeScreen(productViewModel = productViewModel, navController = navController)
+        }
+        composable(route = Screen.ProductDetail.route){
+            ProductDetail(productViewModel = productViewModel)
         }
         composable(route = BottomNavigationScreens.Cart.route){
             CartScreen()
