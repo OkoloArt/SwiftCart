@@ -76,6 +76,7 @@ dependencies {
     // Pager and Pager Indicators
     implementation(libs.accompanist.pager.indicators)
     implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.swipe.refresh)
 
     //Hilt
     implementation (libs.hilt.android)
