@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SwiftCart</string>
+    <string name="placeHolder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Sed eu arcu id nisl consequat vehicula. Proin vulputate, lacus sit amet congue posuere, sem justo placerat purus, vel consequat libero odio in lacus. Mauris vel est non dui aliquet luctus. Nunc eget tempor odio, a ullamcorper lectus.</string>
 </resources>

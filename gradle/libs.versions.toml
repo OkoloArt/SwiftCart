@@ -61,6 +61,7 @@ google-fonts = { group ="androidx.compose.ui", name = "ui-text-google-fonts", ve
 #Pager and Indicators - Accompanist
 accompanist-pager = { group = "com.google.accompanist", name = "accompanist-pager", version.ref = "accompanist" }
 accompanist-pager-indicators = { group = "com.google.accompanist", name = "accompanist-pager-indicators", version.ref = "accompanist" }
+accompanist-swipe-refresh = { group = "com.google.accompanist", name = "accompanist-swiperefresh", version.ref = "accompanist"}
 
 #Dependency injection
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
