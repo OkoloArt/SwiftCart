@@ -1,5 +1,6 @@
 package com.example.swiftcart.network
 
+import com.example.swiftcart.data.model.CartResponse
 import com.example.swiftcart.data.model.Product
 import com.example.swiftcart.data.model.ProductResponse
 import com.example.swiftcart.utils.ApiException
@@ -37,6 +38,30 @@ class ProductService @Inject constructor(@Named("MainClient")private val client:
             return response.body<Product>()
         } else {
             throw ApiException(statusCode = response.status.value, "Error getting product")
+        }
+    }
+
+    suspend fun addToCart(productId: String): CartResponse {
+        val response : HttpResponse = client.get("${Constants.BASE_URL}user/addToCart/${productId}"){
+            contentType(ContentType.Application.Json)
+        }
+
+        if (response.status.isSuccess()){
+            return response.body<CartResponse>()
+        }else {
+            throw ApiException(statusCode = response.status.value, "Error adding product to cart")
+        }
+    }
+
+    suspend fun removeFromCart(productId: String): CartResponse {
+        val response : HttpResponse = client.get("${Constants.BASE_URL}user/removeFromCart/${productId}"){
+            contentType(ContentType.Application.Json)
+        }
+
+        if (response.status.isSuccess()){
+            return response.body<CartResponse>()
+        }else {
+            throw ApiException(statusCode = response.status.value, "Error adding product to cart")
         }
     }
 

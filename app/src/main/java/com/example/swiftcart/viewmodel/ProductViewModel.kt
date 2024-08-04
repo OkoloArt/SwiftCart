@@ -1,12 +1,14 @@
 package com.example.swiftcart.viewmodel
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.swiftcart.data.model.CartResponse
 import com.example.swiftcart.data.model.Product
 import com.example.swiftcart.data.model.ProductResponse
 import com.example.swiftcart.data.repository.ProductRepo
@@ -31,6 +33,12 @@ class ProductViewModel @Inject constructor(private val productRepo: ProductRepo)
 
     private val _productId = MutableLiveData<String>()
     val productId: LiveData<String> = _productId
+
+    private val _cartResponse = MutableStateFlow<AuthResult<CartResponse>>(AuthResult.Loading)
+    val cartResponse : StateFlow<AuthResult<CartResponse>> = _cartResponse.asStateFlow()
+
+    private val _cartStatus = mutableStateMapOf<String, Boolean>()
+    val cartStatus: Map<String, Boolean> get() = _cartStatus
 
      var isRefreshing by mutableStateOf(false)
         private set
@@ -74,6 +82,29 @@ class ProductViewModel @Inject constructor(private val productRepo: ProductRepo)
         }
     }
 
+    fun addProductToCart(productId: String) {
+        viewModelScope.launch {
+            val response = productRepo.addProductToCart(productId)
+            _cartResponse.value = response
+            if (response is AuthResult.Success) {
+                _cartStatus[productId] = true
+            }
+        }
+    }
+
+    fun removeProductFromCart(productId: String) {
+        viewModelScope.launch {
+            val response = productRepo.removeProductFromCart(productId)
+            _cartResponse.value = response
+            if (response is AuthResult.Success) {
+                _cartStatus[productId] = false
+            }
+        }
+    }
+
+    fun isProductInCart(productId: String): StateFlow<Boolean> {
+        return MutableStateFlow(_cartStatus[productId] ?: false)
+    }
 
     private fun startPolling() {
         viewModelScope.launch {
