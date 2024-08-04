@@ -22,6 +22,7 @@ import com.example.swiftcart.ui.screens.ProfileScreen
 import com.example.swiftcart.ui.screens.RegisterScreen
 import com.example.swiftcart.ui.screens.SplashScreen
 import com.example.swiftcart.viewmodel.ProductViewModel
+import com.example.swiftcart.viewmodel.ProfileViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalAnimationApi
@@ -33,37 +34,42 @@ fun SetupNavGraph(
 ) {
 
     val productViewModel: ProductViewModel = hiltViewModel()
+    val profileViewModel: ProfileViewModel = hiltViewModel()
 
     NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = Screen.Splash.route
     ) {
-        composable(route = Screen.Splash.route){
+        composable(route = Screen.Splash.route) {
             SplashScreen(navController = navController)
         }
         composable(route = Screen.Onboarding.route) {
             Onboarding(navController = navController)
         }
-        composable(route = Screen.Register.route){
+        composable(route = Screen.Register.route) {
             RegisterScreen(navController = navController)
         }
-        composable(route = Screen.Login.route){
+        composable(route = Screen.Login.route) {
             LoginScreen(navController = navController)
         }
         composable(route = BottomNavigationScreens.Home.route) {
             HomeScreen(productViewModel = productViewModel, navController = navController)
         }
-        composable(route = Screen.ProductDetail.route){
+        composable(route = Screen.ProductDetail.route) {
             ProductDetail(productViewModel = productViewModel)
         }
-        composable(route = BottomNavigationScreens.Cart.route){
-            CartScreen()
+        composable(route = BottomNavigationScreens.Cart.route) {
+            CartScreen(
+                profileViewModel = profileViewModel,
+                productViewModel = productViewModel,
+                navController = navController
+            )
         }
-        composable(route = BottomNavigationScreens.Profile.route){
-            ProfileScreen()
+        composable(route = BottomNavigationScreens.Profile.route) {
+            ProfileScreen(profileViewModel = profileViewModel)
         }
-        composable(route = BottomNavigationScreens.Notification.route){
+        composable(route = BottomNavigationScreens.Notification.route) {
             NotificationScreen()
         }
     }
