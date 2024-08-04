@@ -126,6 +126,7 @@ fun ProductDetail(
                 modifier = Modifier.align(alignment = Alignment.Center)
             )
         } else {
+            val isClicked by productViewModel.isProductInCart(product!!.id).collectAsState(initial = false)
             ProductListDetail(
                 product = product!!,
                 numberOfItem,
@@ -133,7 +134,10 @@ fun ProductDetail(
                 increaseItem = { numberOfItem++ },
             )
             Footer(
-                modifier = Modifier.align(alignment = Alignment.BottomCenter)
+                productId = product!!.id,
+                isClicked = isClicked ,
+                modifier = Modifier.align(alignment = Alignment.BottomCenter),
+                productViewModel = productViewModel
             )
         }
 
@@ -402,7 +406,13 @@ private fun ReviewItem(review: Review, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun Footer(modifier: Modifier = Modifier) {
+private fun Footer(
+    productId: String,
+    isClicked: Boolean,
+    modifier: Modifier = Modifier,
+    productViewModel: ProductViewModel
+) {
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -417,6 +427,11 @@ private fun Footer(modifier: Modifier = Modifier) {
                 )
                 .align(alignment = Alignment.BottomEnd)
                 .alpha(0.5f)
+                .clickable {
+                    if (isClicked) productViewModel.removeProductFromCart(productId) else productViewModel.addProductToCart(
+                        productId
+                    )
+                }
         ) {
             Icon(
                 imageVector = Icons.Outlined.ShoppingCart,
@@ -425,7 +440,7 @@ private fun Footer(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(start = 20.dp, top = 10.dp, bottom = 10.dp)
             )
             Text(
-                text = "Add to cart",
+                text = if (isClicked) "Remove from Cart" else "Add to Cart",
                 fontFamily = courgetteFontFamily,
                 fontWeight = FontWeight(700),
                 color = Color.White,
