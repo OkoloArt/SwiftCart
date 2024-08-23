@@ -45,6 +45,7 @@ import coil.request.ImageRequest
 import com.example.swiftcart.R
 import com.example.swiftcart.data.model.ProductDto
 import com.example.swiftcart.data.model.ProductResponse
+import com.example.swiftcart.navigation.BottomNavigationScreens
 import com.example.swiftcart.navigation.Screen
 import com.example.swiftcart.ui.component.ShimmerCartList
 import com.example.swiftcart.ui.theme.courgetteFontFamily
@@ -60,47 +61,47 @@ fun CartScreen(
     navController: NavController
 ) {
     var isLoading by remember { mutableStateOf(true) }
-    var productResponse by remember {
-        mutableStateOf<ProductResponse?>(null)
-    }
-    var numberOfItem by remember {
-        mutableIntStateOf(0)
-    }
+    var productResponse by remember { mutableStateOf<ProductResponse?>(null) }
+    var numberOfItem by remember { mutableIntStateOf(0) }
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val isCartScreen = navBackStackEntry?.destination?.route == BottomNavigationScreens.Cart.route
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .padding(top = 15.dp),
     ) {
-        LaunchedEffect(key1 = navBackStackEntry) {
-            profileViewModel.getProductsInCart()
-            profileViewModel.productsInCart.collectLatest { result ->
-                when (result) {
-                    is AuthResult.Error -> {}
-                    AuthResult.Loading -> {
-                        isLoading = true
-                    }
+        LaunchedEffect(key1 = isCartScreen) {
+            if (isCartScreen) {
+                profileViewModel.getProductsInCart()
+                profileViewModel.productsInCart.collectLatest { result ->
+                    when (result) {
+                        is AuthResult.Error -> {}
+                        AuthResult.Loading -> {
+                            isLoading = true
+                        }
 
-                    is AuthResult.Success -> {
-                        isLoading = false
-                        productResponse = result.data
+                        is AuthResult.Success -> {
+                            isLoading = false
+                            productResponse = result.data
+                        }
                     }
                 }
             }
         }
+
         val context = LocalContext.current
         if (isLoading) {
             ShimmerCartList()
         } else {
-            if (productResponse!!.itemCount == 0) {
+            if (productResponse?.itemCount == 0) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Column(modifier = Modifier.align(alignment = Alignment.Center)) {
                         Text(
                             text = "Your cart is currently empty",
                             textAlign = TextAlign.Center,
-                            modifier = Modifier
-                                .align(alignment = Alignment.CenterHorizontally)
+                            modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
                         )
                     }
                 }
