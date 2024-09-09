@@ -5,12 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.swiftcart.data.model.CreateUserDto
+import com.example.swiftcart.data.model.CreateUserResponse
 import com.example.swiftcart.data.model.LoginDto
 import com.example.swiftcart.data.model.LoginResponse
-import com.example.swiftcart.data.model.CreateUserResponse
 import com.example.swiftcart.data.model.ResetPasswordDto
 import com.example.swiftcart.data.model.ResetPasswordResponse
-import com.example.swiftcart.data.model.UserResponse
 import com.example.swiftcart.data.repository.AuthRepo
 import com.example.swiftcart.data.repository.DataStoreRepo
 import com.example.swiftcart.utils.AuthResult
@@ -30,13 +29,12 @@ class AuthViewModel @Inject constructor(
     private val _loginResult = MutableStateFlow<AuthResult<LoginResponse>>(AuthResult.Loading)
     val loginResult: StateFlow<AuthResult<LoginResponse>> = _loginResult.asStateFlow()
 
-    private val _createUserResult =
-        mutableStateOf<AuthResult<CreateUserResponse>>(AuthResult.Loading)
-    val createUserResult: State<AuthResult<CreateUserResponse>> = _createUserResult
+    private val _createUserResult = MutableStateFlow<AuthResult<CreateUserResponse>>(AuthResult.Loading)
+    val createUserResult: StateFlow<AuthResult<CreateUserResponse>> = _createUserResult.asStateFlow()
 
     private val _resetPassword =
-        mutableStateOf<AuthResult<ResetPasswordResponse>>(AuthResult.Loading)
-    val resetPassword: State<AuthResult<ResetPasswordResponse>> = _resetPassword
+        MutableStateFlow<AuthResult<ResetPasswordResponse>>(AuthResult.Loading)
+    val resetPassword: StateFlow<AuthResult<ResetPasswordResponse>> = _resetPassword.asStateFlow()
 
     fun loginUser(loginDto: LoginDto) {
         viewModelScope.launch {

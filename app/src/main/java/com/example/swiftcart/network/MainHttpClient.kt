@@ -71,6 +71,7 @@ class MainHttpClient @Inject constructor(private val dataStoreRepo: DataStoreRep
                 Log.d("HTTP status:", "${response.status.value}")
                 if (response.status.value == HttpStatusCode.Unauthorized.value){
                     dataStoreRepo.setTokenExpired(true)
+                    dataStoreRepo.setHasLoggedIn(false)
                 }
             }
         }
