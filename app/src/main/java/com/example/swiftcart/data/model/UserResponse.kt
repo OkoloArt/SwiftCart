@@ -2,15 +2,15 @@ package com.example.swiftcart.data.model
 
 import kotlinx.serialization.Serializable
 @Serializable
-data class UserResponse(
+data class User(
     val firstName: String,
     val lastName: String,
-    val username: String,
+    val username: String? = null,
     val email: String,
-    val password: String,
-    val profile: Profile,
-    val products: List<Product>,
-    val userCart: List<String>,
+    val password: String? = null,
+    val profile: Profile? = null,
+    val productResponses: List<ProductResponse>? = null,
+    val userCart: List<String>? = null,
     val userRole: ROLE,
 )
 
@@ -18,10 +18,10 @@ data class UserResponse(
 data class Profile(
     val country: String? = null,
     val address: String? = null,
-    val mobileNo: Int? = null,
-    val image: String?,
-    val imageKey: String?,
-    val gender: GENDER?
+    val mobileNo: Long? = null,
+    val image: String? = null,
+    val imageKey: String? = null,
+    val gender: GENDER? = null
 )
 
 
@@ -36,3 +36,7 @@ enum class GENDER(val gender :String){
     OTHER(gender = "OTHER")
 }
 
+@Serializable
+data class CartResponse(
+    val message : String
+)
